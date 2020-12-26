@@ -17,6 +17,7 @@ include ./../pug/bem.pug
                     type='password',
                     placeholder='enter code',
                     v-model='$props.data.bearer'
+                    :class='{"is-invalid": $props.errors}'
                   )
                   +b.form-text.text-muted Enter valid code to obtain beta-access.
                 button.btn.btn-primary.btn-block(
@@ -48,7 +49,7 @@ export default class Home extends Vue {
   private readonly token!: string | undefined;
 
   private action(fetcher: Function) {
-    return fetchTokenAndCompare.bind(null, fetcher);
+    return (data: string) => fetchTokenAndCompare(fetcher, data);
   }
 }
 </script>

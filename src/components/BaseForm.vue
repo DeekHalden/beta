@@ -4,7 +4,7 @@ include ./../pug/bem.pug
   slot(name='loader')
     +b.spinner-border--variant_center.text-primary(role="status" v-if='loading').position-absolute
       .sr-only Loading...
-  slot(name='body', v-bind='{data, loading}')
+  slot(name='body', v-bind='{data, loading, errors}')
   slot(name='action')
 </template>
 
@@ -21,6 +21,8 @@ export default class BaseForm extends Vue {
     bearer: ''
   };
 
+  public errors = '';
+
   @Emit()
   public async submit(): Promise<any> {
     this.loading = true;
@@ -30,7 +32,8 @@ export default class BaseForm extends Vue {
       this.$emit('then', res);
     } catch (error) {
       this.$emit('catch', error);
-      console.error(error)
+      console.error(error.message)
+      this.errors = error
       throw error
     } finally {
       this.loading = false;
