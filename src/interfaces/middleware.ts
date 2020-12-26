@@ -6,3 +6,8 @@ export interface Context {
   next: Function;
   router: any;
 }
+
+export interface TokenRecord {
+  id: number;
+  bearer: string;
+}

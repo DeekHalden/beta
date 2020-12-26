@@ -1,5 +1,5 @@
 import { Context, MiddlewareType } from "@/interfaces/middleware";
-import { withAuth } from "@/middleware/auth";
+import { auth, validateToken } from "@/middleware/auth";
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
 import Home from "../views/Home.vue";
@@ -12,12 +12,15 @@ const routes: Array<RouteConfig> = [
     name: "Home",
     component: Home,
   },
-  withAuth(withAuth({
+  {
     path: "/page",
     name: "Protected page",
     component: () =>
       import(/* webpackChunkName: "protected" */ "../views/Protected.vue"),
-  })),
+    meta: {
+      middleware: [validateToken, auth]
+    }
+  },
   {
     path: "*",
     redirect: "/",

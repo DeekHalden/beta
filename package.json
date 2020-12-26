@@ -8,6 +8,8 @@
     "lint": "vue-cli-service lint"
   },
   "dependencies": {
+    "bemto.pug": "github:kizu/bemto",
+    "bootstrap": "^4.5.3",
     "core-js": "^3.6.5",
     "pug": "^3.0.0",
     "pug-plain-loader": "^1.1.0",
